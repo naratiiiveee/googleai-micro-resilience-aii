@@ -1,0 +1,12 @@
+# Proje Fikri: MicroResilience AI
+
+## Problem Tanımı
+Toprak ve bitkilerdeki faydalı bakterilerin (özellikle çeşitli enzim aktivitelerine sahip olanların) iklim krizi koşullarına (kuraklık, tuzluluk, patojen baskısı) karşı ne kadar dirençli olduğunu hızlıca tespit edememek, sürdürülebilir tarımı zorlaştırmaktadır. 
+
+## Hedef Kullanıcı
+* Ziraat Mühendisleri ve Danışmanlar
+* Akademik Araştırmacılar
+* Modern Tarım Yapan Çiftçiler ve Tarım Şirketleri
+
+## AI'ın Rolü
+Kullanıcının yüklediği toprak/bitki mikrobiyom verilerini (veya laboratuvardan alınan enzim aktivite verilerini) makine öğrenmesi modelleriyle analiz etmek. AI, bu verileri kullanarak toprağın "İklim Direnç Skorunu" hesaplayacak ve toprağı iyileştirmek için spesifik mikrobiyal veya biyoteknolojik müdahale önerileri (örn: belirli enzim aktivitesi yüksek bakteri inokülasyonu) sunacaktır.

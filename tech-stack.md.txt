@@ -1,0 +1,10 @@
+# Teknoloji Yığını (Tech Stack)
+
+* **Programlama Dili:** Python
+  * *Gerekçe:* Biyoinformatik, veri analizi ve makine öğrenmesi kütüphaneleri açısından en zengin dildir.
+* **Web Çerçevesi (Frontend/Backend):** Streamlit
+  * *Gerekçe:* Python kodlarını çok hızlı bir şekilde interaktif web uygulamalarına dönüştürmeyi sağlar. Veri görselleştirme ve model entegrasyonu için idealdir ve HTML/CSS/JS karmaşasına girmeden hızlı prototip üretmeye olanak tanır.
+* **Veri Analizi ve Makine Öğrenmesi:** Pandas, NumPy, Scikit-learn
+  * *Gerekçe:* Laboratuvar verilerinin (CSV) temizlenmesi, işlenmesi ve sınıflandırma/tahminleme algoritmalarının oluşturulması için endüstri standartlarıdır.
+* **Görselleştirme:** Plotly veya Matplotlib
+  * *Gerekçe:* Analiz edilen enzim aktiviteleri ve direnç skorlarını kullanıcıya anlaşılır interaktif grafikler halinde sunmak için.

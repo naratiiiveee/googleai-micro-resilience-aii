@@ -1,0 +1,9 @@
+# Kullanıcı Akışı (User Flow)
+
+1. **Ana Sayfa:** Kullanıcı "MicroResilience AI" platformuna giriş yapar ve projenin amacını anlatan kısa bir ekranla karşılaşır.
+2. **Veri Yükleme (Input):** Kullanıcı, laboratuvar sonuçlarını (örneğin; topraktaki bakteri türleri, tespit edilen enzim aktiviteleri, tuzluluk oranları) CSV/Excel formatında sisteme yükler.
+3. **Analiz İşlemi (Processing):** Sistem yüklenen veriyi işler ve AI modeli devreye girerek stres tolerans analizini başlatır. Ekranda "Mikrobiyom Analiz Ediliyor..." şeklinde bir yükleme çubuğu görünür.
+4. **Sonuç Paneli (Output):**
+    * **Direnç Skoru:** Toprağın veya bitkinin mevcut iklim streslerine karşı dayanıklılık puanı (0-100 arası) gösterilir.
+    * **Veri Görselleştirme:** Enzim aktivite dağılımları veya mikrobiyal çeşitlilik grafikler halinde sunulur.
+5. **Öneriler ve Raporlama:** Sistem, direnci artırmak için alınması gereken aksiyonları listeler. Kullanıcı sonuçları PDF raporu olarak indirir.

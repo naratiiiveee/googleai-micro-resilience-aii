@@ -1,0 +1,38 @@
+import streamlit as st
+import pandas as pd
+import time
+
+# Sayfa Ayarları
+st.set_page_config(page_title="MicroResilience AI", page_icon="🌱", layout="wide")
+
+# Başlık ve Açıklama
+st.title("MicroResilience AI 🌱")
+st.subheader("İklim Krizine Karşı Toprak ve Bitki Mikrobiyomu Analizi")
+st.write("Toprak veya bitki mikrobiyom verilerinizi yükleyerek stres tolerans analizi yapın ve çözüm önerileri alın.")
+
+# Veri Yükleme Bölümü
+uploaded_file = st.file_uploader("Mikrobiyom veya Enzim Aktivite Verinizi Yükleyin (CSV)", type="csv")
+
+if uploaded_file is not None:
+    # Veriyi okuma
+    df = pd.read_csv(uploaded_file)
+    st.write("### Yüklenen Veri Önizlemesi:")
+    st.dataframe(df.head())
+
+    # Analiz Butonu
+    if st.button("Analizi Başlat"):
+        with st.spinner("Yapay zeka modeli verileri inceliyor..."):
+            # Burada gerçek modelin çalışması simüle ediliyor
+            time.sleep(2) 
+            
+        st.success("Analiz Tamamlandı!")
+        
+        # Sonuçları Gösterme (Örnek Metrikler)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric(label="Hesaplanan İklim Direnç Skoru", value="72/100", delta="-5 Düşük Tolerans")
+        with col2:
+            st.metric(label="Baskın Enzim Aktivitesi", value="Amilaz", delta="Normal Seviye")
+            
+        st.write("### 📋 AI Aksiyon Önerileri")
+        st.info("Topraktaki tuzluluk stresi yüksek. Tuza toleranslı, ACC deaminaz aktivitesi yüksek bakteri inokülasyonu önerilmektedir.")

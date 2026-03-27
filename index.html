@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroResilience AI | İklim Krizine Karşı Toprak Analizi</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="glass-header">
+        <div class="logo">
+            <i class="fa-solid fa-leaf"></i> MicroResilience <span>AI</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="navigateTo('hero')">Ana Sayfa</a></li>
+                <li><a href="#" onclick="navigateTo('how-it-works')">Nasıl Çalışır?</a></li>
+                <li><a href="#" onclick="navigateTo('analysis')">Analiz Paneli</a></li>
+            </ul>
+        </nav>
+        <button class="btn-primary" onclick="navigateTo('analysis')">Hemen Başla</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section page-section active-section">
+        <div class="hero-content">
+            <h1 class="animate-up">Toprağınızın İklim Direncini <br> <span class="highlight">Yapay Zeka</span> ile Keşfedin</h1>
+            <p class="animate-up delay-1">Kuraklık, tuzluluk ve iklim değişikliği etkilerine karşı mikrobiyom analiziyle toprağınızın ve bitkinizin sağlığını koruyun, geleceği güvenceye alın.</p>
+            <div class="hero-buttons animate-up delay-2">
+                <a href="#" onclick="navigateTo('analysis')" class="btn-primary"><i class="fa-solid fa-microscope"></i> Analiz Başlat</a>
+                <a href="#" onclick="navigateTo('how-it-works')" class="btn-secondary"><i class="fa-solid fa-circle-question"></i> Daha Fazla Bilgi</a>
+            </div>
+        </div>
+        <div class="hero-visual animate-up delay-3">
+            <div class="floating-card metric-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <div class="info">
+                    <h4>İklim Skoru</h4>
+                    <span class="value">84/100</span>
+                </div>
+            </div>
+
+            <div class="globe-container">
+                <div class="globe"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="how-it-works" class="info-section page-section">
+        <h2 class="section-title">Neden MicroResilience AI?</h2>
+        <div class="card-grid">
+            <div class="info-card">
+                <i class="fa-solid fa-temperature-arrow-up"></i>
+                <h3>İklim Krizine Hazırlık</h3>
+                <p>Artan sıcaklıklar ve değişen yağış rejimleri toprağınızın mikrobiyom dengesini bozar. Yapay zeka ile riskleri önceden belirleyin.</p>
+            </div>
+            <div class="info-card">
+                <i class="fa-solid fa-vial-virus"></i>
+                <h3>Enzim ve Mikrobiyom Analizi</h3>
+                <p>Amilaz, oksidaz gibi enzim aktiviteleri ve bakteri türü çeşitliliği üzerinden toprağın strese toleransını hesaplarız.</p>
+            </div>
+            <div class="info-card">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h3>AI Destekli Çözümler</h3>
+                <p>Spesifik mikrobiyal inokülasyon ve biyoteknolojik müdahale önerileriyle, verim kaybını minimuma indirin.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map & Analysis Section -->
+    <section id="analysis" class="analysis-section page-section">
+        <div class="analysis-container glass-panel">
+            <div class="analysis-header">
+                <h2>Bölgesel Analiz Paneli</h2>
+                <p>Aşağıdaki haritadan il/ilçe seçin. İster dosya yükleyerek ister soruları yanıtlayarak hızlı mikrobiyom analizi oluşturun.</p>
+            </div>
+
+            <div class="analysis-layout">
+                <!-- Sol Panel: Harita ve Seçim -->
+                <div class="map-panel">
+                    <div class="selection-controls">
+                        <select id="provinceSelect" onchange="loadDistricts()">
+                            <option value="">İl Seçin...</option>
+                        </select>
+                        <select id="districtSelect" onchange="focusDistrict()" disabled>
+                            <option value="">Önce İl Seçin</option>
+                        </select>
+                    </div>
+                    <div id="map" class="map-view"></div>
+                    <div class="coordinates-display">
+                        <i class="fa-solid fa-location-crosshairs"></i> <span id="coords">Enlem: -, Boylam: -</span>
+                    </div>
+                </div>
+
+                <!-- Sağ Panel: Veri Girişi ve Sonuçlar -->
+                <div class="data-panel">
+                    <!-- Başlangıç Aşamasındaki Sekmeler (Input Steps) -->
+                    <div id="inputSteps" class="step active">
+                        <div class="analysis-tabs">
+                            <button class="tab-btn active" onclick="switchTab('survey')"><i class="fa-solid fa-list-check"></i> Anketle Hızlı Analiz</button>
+                            <button class="tab-btn" onclick="switchTab('upload')"><i class="fa-solid fa-file-csv"></i> Laboratuvar Verisi Yükle (CSV)</button>
+                        </div>
+
+                        <!-- Anket Paneli -->
+                        <div id="surveyTab" class="tab-content active">
+                            <h3>Arazinize Dair Temel Bilgiler</h3>
+                            <div class="survey-form">
+                                <div class="form-group">
+                                    <label>Toprak Tipi:</label>
+                                    <select id="q-soil"><option>Kumlu (Geçirgen)</option><option>Killi (Su Tutan)</option><option>Tınlı (Dengeli)</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Yetiştirilen Temel Mahsul:</label>
+                                    <input type="text" id="q-crop" placeholder="Örn: Buğday, Mısır, Domates">
+                                </div>
+                                <div class="form-group">
+                                    <label>Son Dönem İklim Gözleminiz:</label>
+                                    <select id="q-climate"><option>Aşırı Kuraklık / Beklenmeyen Sıcak</option><option>Normal / Mevsiminde</option><option>Aşırı Yağışlı / Don Riski</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kimyasal Gübre & İlaç Kullanımı:</label>
+                                    <select id="q-fert"><option>Yüksek (Sürekli)</option><option>Orta Seviye</option><option>Düşük / Tamamen Organik</option></select>
+                                </div>
+                                <button class="btn-primary mt-20" style="width:100%; justify-content:center;" onclick="startAnalysis('survey')">Anket Verisiyle Analizi Başlat</button>
+                            </div>
+                        </div>
+
+                        <!-- Dosya Yükleme Paneli -->
+                        <div id="uploadTab" class="tab-content" style="display: none;">
+                            <div class="upload-box" id="dropZone">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <h3>CSV Dosyası Yükleyin</h3>
+                                <p>Sürükle bırak ya da tıklayarak seç</p>
+                                <input type="file" id="fileInput" accept=".csv" hidden>
+                                <button class="btn-outline" onclick="document.getElementById('fileInput').click()">Dosya Seç</button>
+                            </div>
+                            <div class="simulation-alert">
+                                <i class="fa-solid fa-info-circle"></i> Demo modunda tüm dosyalar ve anket verileri yerel analiz edilir.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yükleniyor Ekranı -->
+                    <div id="loadingStep" class="step">
+                        <div class="loader-container">
+                            <div class="ai-loader"></div>
+                            <h3 id="loaderText">Yapay Zeka Analiz Ediyor...</h3>
+                            <p>Bölgesel iklim verileri, toprak yapısı ve biyo-belirteçler işleniyor.</p>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                    </div>
+
+                    <!-- Sonuç Ekranı -->
+                    <div id="resultStep" class="step">
+                        <div class="result-header">
+                            <h3><span id="resultLocation">Bölge</span> Resmi Analiz Raporu</h3>
+                            <button class="btn-sm btn-outline" onclick="downloadPDF()"><i class="fa-solid fa-download"></i> Raporu İndir (PDF)</button>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric highlight-metric">
+                                <span class="metric-label">Bölgesel İklim Direnç Skoru</span>
+                                <div class="score-circle">
+                                    <h2 id="overallScore">--</h2>
+                                    <span>/100</span>
+                                </div>
+                                <span class="status warning" id="scoreStatus">Hesaplanıyor</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Baskın Stres Faktörü</span>
+                                <h4 id="resStress">Su Yetersizliği</h4>
+                                <small>Geçirgen toprak + kuraklık endeksi</small>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Tahmini Enzim Aktivitesi</span>
+                                <h4 id="resEnzyme">Amilaz (Normal)</h4>
+                                <small>Mikrobiyal denge durumu</small>
+                            </div>
+                        </div>
+
+                        <!-- Resmi, Detaylı Rapor -->
+                        <div class="formal-report">
+                            <div class="formal-report-content" id="reportText">
+                                <!-- JS ile Doldurulacak -->
+                            </div>
+                        </div>
+
+                        <div class="ai-recommendations">
+                            <h4><i class="fa-solid fa-wand-magic-sparkles"></i> AI Çözüm Önerileri</h4>
+                            <ul class="recommendation-list" id="recommendationsList">
+                                <!-- JS İle Doldurulacak -->
+                            </ul>
+                        </div>
+                        <button class="btn-secondary mt-20" onclick="resetAnalysis()">Yeni Analiz Yap</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget" id="chatbotWidget">
+        <button class="chat-toggle" onclick="toggleChat()" id="chatBtn">
+            <i class="fa-solid fa-robot"></i><span class="chat-badge text-focus-in">!</span>
+        </button>
+        <div class="chat-window" id="chatWindow" style="display: none;">
+            <div class="chat-header">
+                <div style="display: flex; align-items:center; gap:10px;">
+                    <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4 style="margin:0; font-size:1rem;">Mico</h4>
+                        <small style="color:var(--primary); font-size:0.7rem;">Çevrimiçi</small>
+                    </div>
+                </div>
+                <button class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message ai-message">
+                    Merhaba! Ben Mico. 🌿 Toprak sağlığı, rapor sonuçlarınız veya kullanmanız gereken gübrelerle ilgili bana sorular sorabilirsiniz. Size nasıl yardımcı olabilirim?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Soru sorun... (Örn: Raporumu açıkla)" onkeypress="handleChatPress(event)">
+                <button onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gizli PDF Rapor Şablonu (Resmi Format) -->
+    <div id="pdf-container" style="position: absolute; left: -9999px; top: -9999px; z-index:-10;">
+        <div id="printable-report" style="width: 800px; padding: 50px; background: white; color: #111; font-family: 'Times New Roman', Times, serif; box-sizing: border-box;">
+            <div style="border-bottom: 3px solid #0f766e; padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h1 style="color: #0f766e; margin: 0; font-size: 26px; text-transform: uppercase;">MicroResilience AI</h1>
+                    <p style="margin: 5px 0 0; color: #444; font-size: 14px; font-weight: bold;">AKILLI LABORATUVAR & ZİRAİ ANALİZ SONUÇ RAPORU</p>
+                </div>
+                <div style="text-align: right; font-size: 13px; color: #333;">
+                    <p style="margin: 0;"><strong>Tarih:</strong> <span id="pdf-date"></span></p>
+                    <p style="margin: 5px 0 0;"><strong>Rapor Belge No:</strong> <span id="pdf-id"></span></p>
+                </div>
+            </div>
+
+            <h2 style="font-size: 18px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; color:#222;">1. BÖLGE VE ÖN TESPİT BULGULARI</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px;">
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ccc; background: #f4f4f4; width: 35%;"><strong>Analiz Edilen Koordinat / Bölge:</strong></td>
+                    <td style="padding: 10px; border: 1px solid #ccc;" id="pdf-location"></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ccc; background: #f4f4f4;"><strong>Veri Kaynağı (Analiz Türü):</strong></td>
+                    <td style="padding: 10px; border: 1px solid #ccc;" id="pdf-type"></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ccc; background: #f4f4f4;"><strong>Genel İklim Direnç Skoru:</strong></td>
+                    <td style="padding: 10px; border: 1px solid #ccc;"><strong style="font-size:20px; color:#ef4444;" id="pdf-score"></strong> / 100</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ccc; background: #f4f4f4;"><strong>Tespit Edilen Baskın Stres:</strong></td>
+                    <td style="padding: 10px; border: 1px solid #ccc; font-weight:bold; color:#b91c1c;" id="pdf-stress"></td>
+                </tr>
+            </table>
+
+            <h2 style="font-size: 18px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; color:#222;">2. YAPAY ZEKA DEĞERLENDİRME ÖZETİ</h2>
+            <div style="background: #f1f8f6; padding: 20px; border-left: 4px solid #22c55e; margin-bottom: 30px; line-height: 1.6; font-size: 14px;" id="pdf-ai-summary">
+            </div>
+
+            <h2 style="font-size: 18px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; color:#222;">3. BİYOTEKNOLOJİK & TARIMSAL EYLEM PLANI (ÖNERİLER)</h2>
+            <ul style="line-height: 1.8; margin-bottom: 50px; font-size: 14px;" id="pdf-recs">
+            </ul>
+
+            <div style="text-align: center; border-top: 1px solid #ccc; padding-top: 15px; font-size: 11px; color: #666; font-style: italic;">
+                Bu evrak, sahadan girilen veriler ışığında teşhis algoritması ve Makine Öğrenmesi (AI) algoritmaları tarafından bilgi amaçlı üretilmiştir.<br>
+                Zirai ilaç veya tıbbi gübre reçetesi yerine geçmez. Doğrulamak için yerel ziraat kuruluşunuza başvurunuz. &copy; 2026 MicroResilience AI Raporlama Sistemi
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 MicroResilience AI | İklim Krizine Karşı Sürdürülebilir Tarım</p>
+    </footer>
+
+    <!-- Kütüphaneler -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="provinces.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
