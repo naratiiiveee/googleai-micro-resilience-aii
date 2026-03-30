@@ -14,4 +14,4 @@ Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyi
 3. Uygulamayı başlatın (Streamlit kullanıyorsanız): `streamlit run features/app.py`
 
 ## Yayın Linki
-[Uygulama Canlı Yayına Alındığında Buraya Eklenecek]
+https://youtu.be/VMGD0AglBjk
